@@ -4,8 +4,6 @@ import 'package:samayakuri/app/modules/home/home_controller.dart';
 class HomeBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<HomeController>(
-      () => HomeController(),
-    );
+    Get.put(HomeController(), permanent: true);
   }
 }

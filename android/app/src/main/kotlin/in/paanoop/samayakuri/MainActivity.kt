@@ -1,4 +1,4 @@
-package in.paanoop.samayakuri
+package vip.anoop.samayakuri
 
 import io.flutter.embedding.android.FlutterActivity
 
