@@ -1,12 +1,14 @@
 import 'package:get/get.dart';
+import 'package:samayakuri/app/data/model/time_counter.dart';
 
 class HomeController extends GetxController {
-  //TODO: Implement HomeController
+  final timeCounter = TimeCounter().obs;
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
+
+    interval(timeCounter, (_) => {print("$_ has been changed")});
   }
 
   @override
@@ -16,5 +18,8 @@ class HomeController extends GetxController {
 
   @override
   void onClose() {}
-  void increment() => count.value++;
+
+  onStartClicked() {
+    timeCounter.value.reset(true);
+  }
 }

@@ -1,5 +1,5 @@
 name: samayakuri
-version: 1.0.0+1
+version: 0.1.0+1
 publish_to: none
 description: A new Flutter project.
 environment: 
@@ -18,4 +18,8 @@ dev_dependencies:
 
 flutter: 
   uses-material-design: true
+  fonts:
+    - family: MeriendaOne
+      fonts:
+       - asset: assets/fonts/MeriendaOne-Regular.ttf 
 
