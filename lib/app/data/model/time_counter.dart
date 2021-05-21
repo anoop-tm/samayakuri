@@ -28,6 +28,7 @@ class TimeCounter {
   void calculateElapsedTime() {
     try {
       Duration duration = DateTime.now().difference(start);
+      print(duration.toString());
       String durationText =
           duration.toString().split('.').first.padLeft(8, '0');
       _hour = (int.parse(durationText.split(':')[0]));
