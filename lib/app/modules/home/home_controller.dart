@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'package:samayakuri/app/data/provider/counter.dart';
 
 class HomeController extends GetxController {
-  final elapsedTime = '00:00:00'.obs;
+  Duration elapsedTime = Duration();
+  final elapsedTimeText = '00:00:00'.obs;
+  final elapsedTimeInDecimal = 0.0.obs;
   final lastElapsedTime = ''.obs;
   final isRunning = false.obs;
 
@@ -20,9 +22,9 @@ class HomeController extends GetxController {
     ever(isRunning, (value) {
       if (isRunning.isTrue) {
         timer = Timer.periodic(Duration(seconds: 1), (value) {
-          Duration duration = DateTime.now().difference(startTime!);
-          elapsedTime(
-            duration.toString().split('.').first.padLeft(8, "0"),
+          elapsedTime = DateTime.now().difference(startTime!);
+          elapsedTimeText(
+            elapsedTime.toString().split('.').first.padLeft(8, "0"),
           );
         });
       } else {
@@ -30,8 +32,7 @@ class HomeController extends GetxController {
       }
     });
 
-    _checkIfTimeIsSaved();
-    _initTimerIfTimeIsSaved();
+    initTimerIfTimeisSaved();
   }
 
   @override
@@ -51,14 +52,16 @@ class HomeController extends GetxController {
   onPauseClicked() {}
 
   onStopClicked() {
-    lastElapsedTime(elapsedTime.value);
-    elapsedTime('00:00:00');
+    lastElapsedTime(elapsedTimeText.value);
+    convertTimeToDecimal(elapsedTime);
+    elapsedTime = Duration();
+    elapsedTimeText('00:00:00');
     isRunning(false);
     timer?.cancel();
     _sharedPref.clearDuration();
   }
 
-  bool _checkIfTimeIsSaved() {
+  bool initTimerIfTimeisSaved() {
     DateTime? savedTime = _sharedPref.getDuration();
     if (savedTime == null) {
       return false;
@@ -69,5 +72,11 @@ class HomeController extends GetxController {
     }
   }
 
-  void _initTimerIfTimeIsSaved() {}
+  void convertTimeToDecimal(Duration duration) {
+    num hours = num.parse(duration.toString().split(':').first);
+    num minutes = num.parse(duration.toString().split(':')[1]);
+    num decimal = (minutes / 60 * 100).round();
+    num result = num.parse('$hours.${decimal.toString().replaceAll('.', '')}');
+    elapsedTimeInDecimal(result.toDouble());
+  }
 }

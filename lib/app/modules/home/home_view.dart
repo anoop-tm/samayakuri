@@ -27,22 +27,68 @@ class HomeView extends GetView<HomeController> {
           SizedBox(height: 20),
           _Buttons(controller: controller),
           SizedBox(height: 20),
-          Obx(
-            () => (controller.lastElapsedTime.isEmpty)
-                ? SizedBox(height: 10)
-                : Text(
-                    'Last time recorded was',
-                    style: Get.textTheme.bodyText1,
-                  ),
-          ),
-          Obx(
-            () => Text(
-              controller.lastElapsedTime.value,
-              style: Get.textTheme.headline6,
-            ),
-          ),
+          _SummaryHeader(),
+          _Summary(),
         ],
       ),
+    );
+  }
+}
+
+class _SummaryHeader extends StatelessWidget {
+  _SummaryHeader({
+    Key? key,
+  }) : super(key: key);
+
+  final HomeController controller = Get.find();
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(
+      () => (controller.lastElapsedTime.isEmpty)
+          ? SizedBox(height: 10)
+          : Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  'Last time in decimal',
+                  style: Get.textTheme.overline,
+                ),
+                Text(
+                  'Last time recorded was',
+                  style: Get.textTheme.overline,
+                ),
+              ],
+            ),
+    );
+  }
+}
+
+class _Summary extends StatelessWidget {
+  _Summary({
+    Key? key,
+  }) : super(key: key);
+
+  final HomeController controller = Get.find();
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(
+      () => (controller.lastElapsedTime.isEmpty)
+          ? SizedBox(height: 10)
+          : Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  controller.elapsedTimeInDecimal.value.toString(),
+                  style: Get.textTheme.headline6,
+                ),
+                Text(
+                  controller.lastElapsedTime.value,
+                  style: Get.textTheme.headline6,
+                ),
+              ],
+            ),
     );
   }
 }
@@ -105,7 +151,10 @@ class _Timer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => Text(_controller.elapsedTime.value, style: Get.textTheme.headline2),
+      () => Text(
+        _controller.elapsedTimeText.value,
+        style: Get.textTheme.headline2,
+      ),
     );
   }
 }
