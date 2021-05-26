@@ -15,7 +15,28 @@ void main() {
       HomeController controller = Get.find();
       Duration duration = Duration(hours: 0, minutes: 1, seconds: 0);
       controller.convertTimeToDecimal(duration);
-      expect(controller.elapsedTimeInDecimal.value, 0.2);
+      expect(controller.elapsedTimeInDecimal.value, 0.02);
+    });
+
+    test("convertTimeToDecimal: 5mins", () async {
+      HomeController controller = Get.find();
+      Duration duration = Duration(hours: 0, minutes: 5, seconds: 0);
+      controller.convertTimeToDecimal(duration);
+      expect(controller.elapsedTimeInDecimal.value, 0.08);
+    });
+
+    test("convertTimeToDecimal: 10mins", () async {
+      HomeController controller = Get.find();
+      Duration duration = Duration(hours: 0, minutes: 10, seconds: 0);
+      controller.convertTimeToDecimal(duration);
+      expect(controller.elapsedTimeInDecimal.value, 0.17);
+    });
+
+    test("convertTimeToDecimal: 15mins", () async {
+      HomeController controller = Get.find();
+      Duration duration = Duration(hours: 0, minutes: 15, seconds: 0);
+      controller.convertTimeToDecimal(duration);
+      expect(controller.elapsedTimeInDecimal.value, 0.25);
     });
 
     test("convertTimeToDecimal: 45mins", () async {
@@ -32,18 +53,11 @@ void main() {
       expect(controller.elapsedTimeInDecimal.value, 1.0);
     });
 
-    test("convertTimeToDecimal: 2h 15m", () async {
+    test("convertTimeToDecimal: 2h 05m", () async {
       HomeController controller = Get.find();
-      Duration duration = Duration(hours: 2, minutes: 15, seconds: 0);
+      Duration duration = Duration(hours: 2, minutes: 5, seconds: 0);
       controller.convertTimeToDecimal(duration);
-      expect(controller.elapsedTimeInDecimal.value, 2.25);
-    });
-
-    test("convertTimeToDecimal: 3h 30m", () async {
-      HomeController controller = Get.find();
-      Duration duration = Duration(hours: 3, minutes: 30, seconds: 0);
-      controller.convertTimeToDecimal(duration);
-      expect(controller.elapsedTimeInDecimal.value, 3.5);
+      expect(controller.elapsedTimeInDecimal.value, 2.08);
     });
   });
 }

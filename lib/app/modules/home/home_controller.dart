@@ -76,7 +76,8 @@ class HomeController extends GetxController {
     num hours = num.parse(duration.toString().split(':').first);
     num minutes = num.parse(duration.toString().split(':')[1]);
     num decimal = (minutes / 60 * 100).round();
-    num result = num.parse('$hours.${decimal.toString().replaceAll('.', '')}');
+    String padded = decimal.toString().split('.').first.padLeft(2, '0');
+    num result = num.parse('$hours.$padded');
     elapsedTimeInDecimal(result.toDouble());
   }
 }
